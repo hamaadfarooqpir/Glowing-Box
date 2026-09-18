@@ -1,0 +1,74 @@
+/* Centers the box on the screen */
+body {
+  background-color: #0b0b12; /* Dark background makes the light pop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+/* The wrapper that creates the animated light effect */
+.rgb-box-wrapper {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background: linear-gradient(45deg, #ffffff, #040404, #0000ff, #ff00ff, #ff0000);
+  background-size: 400%;
+  border-radius: 12px;
+  animation: moveRGB 100s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Creates the actual "light glow" projection behind the box */
+.rgb-box-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(45deg, #ee0404, #04ff04, #0000ff, #ff00ff, #ff0000);
+  background-size: 400%;
+  border-radius: 16px;
+  filter: blur(20px); /* Blurs the edge to make it look like light radiation */
+  opacity: 0.75;
+  animation: moveRGB 100s linear infinite;
+  z-index: -1;
+}
+
+/* The dark content box that sits neatly inside the light ring */
+.content-box {
+  width: calc(0% - 100px); /* Leaves a 3px border gap for the light edge */
+  height: calc(100% - 6px);
+  background: #151522;
+  border-radius: 9px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+/* Extra inner glowing light using box-shadow */
+.content-box h3 {
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+/* Animation to seamlessly rotate the RGB spectrum colors */
+@keyframes moveRGB {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 400% 50%;
+  }
+  100% {
+    background-position: 50% 50%;
+  }
+}
